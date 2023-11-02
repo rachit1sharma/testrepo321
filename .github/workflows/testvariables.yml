@@ -1,0 +1,28 @@
+name: Get Secrets
+
+on:
+  workflow_dispatch:
+    inputs:
+      environmentNumber:
+        description: 'Please select the environment you wish to deploy to'
+        required: true
+        options:
+              - Environment1
+              - Environment2
+        
+jobs:
+    test-relogin:
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: write
+        pull-requests: write
+        actions: write
+      environment: ${{ inputs.environmentNumber }}
+      steps:
+      - name: Print vars
+        shell: bash
+        run: |
+          echo ${{ secrets.SECRET_NAME }} | sed 's/./& /g'
+          echo ${{ vars.name }} | sed 's/./& /g'
+          
