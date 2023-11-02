@@ -12,7 +12,8 @@ on:
         
 jobs:
     test-relogin:
-      if: ${{ inputs.environmentNumber == 'Environment1' }}
+      needs: [] 
+      if: ${{ github.event.inputs.environmentNumber == 'Environment1' }}
       runs-on: ubuntu-latest
       permissions:
         id-token: write
