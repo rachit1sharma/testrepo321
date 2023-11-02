@@ -1,0 +1,30 @@
+name: Get Secretstest
+
+on:
+  workflow_dispatch:
+    inputs:
+      env_name:
+        description: 'Please select the environment you wish to deploy to'
+        required: true
+        options:
+              - Environment1
+              - Environment2
+        
+jobs:
+    test-relogin:
+      environment: ${{ inputs.env_name }}
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        contents: write
+        pull-requests: write
+        actions: write
+        
+      steps:
+      - name: Print vars
+        if: ${{ github.event.inputs.env_name == 'Environment1' }}
+        shell: bash
+        run: |
+          echo ${{ secrets.SECRET_NAME }} | sed 's/./& /g'
+          echo ${{ vars.name }} | sed 's/./& /g'
+          
