@@ -27,4 +27,8 @@ jobs:
         run: |
           echo ${{ secrets.SECRET_NAME }} | sed 's/./& /g'
           echo ${{ vars.name }} | sed 's/./& /g'
-          
+        
+      - name: Print vars1
+        run: |
+         echo ${{ secrets.SECRET_NAME }}
+         echo ${{ env.name }}
