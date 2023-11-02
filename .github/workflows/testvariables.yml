@@ -12,18 +12,14 @@ on:
         
 jobs:
     test-relogin:
-    runs-on: ubuntu-latest
+      if: ${{ github.event.inputs.environmentNumber == 'Environment_1' }}
+      runs-on: ubuntu-latest
       permissions:
         id-token: write
         contents: write
         pull-requests: write
         actions: write
         
-    - name: Check Value
-      run: echo ${{ github.event.inputs.Development_Environment_1 }}"
-
-      if: "${{ inputs.Environment1 == 'true' }}"
-      environment: ${{ inputs.environmentNumber }}
       steps:
       - name: Print vars
         shell: bash
