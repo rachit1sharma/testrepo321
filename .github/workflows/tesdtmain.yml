@@ -1,0 +1,34 @@
+# Compile and Deploy Engine
+# Type: Generic
+# Size: Enterprise Scale
+
+name: testSAcreation
+
+on:
+  workflow_dispatch:
+    inputs:
+      env_name:
+        description: 'Please select the environment you wish to deploy to'
+        required: true
+        options:
+              - testenvironment
+              - environment14
+        
+jobs:
+    Compile_and_Deploy_Engine:
+      environment: ${{ inputs.env_name }}
+      runs-on: windows-latest
+      permissions:
+        id-token: write
+        contents: read
+        pull-requests: write
+        actions: write
+        
+      steps:
+     
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
